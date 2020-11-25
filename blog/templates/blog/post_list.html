@@ -1,21 +1,13 @@
-<!DOCTYPE html>
-<html lang="it" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>Blog di Luca</title>
-  </head>
-  <body>
-        <div>
-            <h1><a href="/">Blog con Django di Luca</a></h1>
-        </div>
+{% extends 'blog/base.html' %}
 
-        {% for post in posts %}
-            <div>
+{% block content %}
+    {% for post in posts %}
+        <div class="post">
+            <div class="date">
                 <p>published: {{ post.published_date }}</p>
-                <h2><a href="">{{ post.title }}</a></h2>
-                <p>{{ post.text|linebreaksbr }}</p> <!--il comando '|linebreaks' introduce un filtro che traduce gli accapo (la pressione del tasto "invio" sulla tastiera) nel loro equivalente in HTML. -->
             </div>
-        {% endfor %}
-
-  </body>
-</html>
+            <h2><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h2>
+            <p>{{ post.text|linebreaksbr }}</p>
+        </div>
+    {% endfor %}
+{% endblock %}
